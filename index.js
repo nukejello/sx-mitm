@@ -5,6 +5,12 @@ const http = require('http')
 const path = require('path')
 const fs = require('fs')
 
+const license = { // thanks simon
+  fingerprint: fs.readFileSync(path.join(__dirname, 'fingerprint.txt'), 'utf8'),
+  redeem_code: '6CJ0FCRY6P3D',
+  license: fs.readFileSync(path.join(__dirname, 'license.txt'), 'utf8')
+}
+
 const cert = fs.readFileSync(path.join(__dirname, 'sx.xecuter.com.crt'), 'utf8')
 const key = fs.readFileSync(path.join(__dirname, 'sx.xecuter.com.key'), 'utf8')
 const sslOpt = {
@@ -15,14 +21,17 @@ const sslOpt = {
 const app = express()
 require('./dns')
 app.use(bodyParser.json())
-app.get('*', (req, res) => {
-  console.log('GET', req.path)
-  res.send('hi')
-})
-app.post('*', (req, res) => {
-  console.log('POST', req.path)
-  console.log(req.url)
-  console.log(req.body)
+app.post('/sx-api-server.php', (req, res) => {
+  console.log('POST', req.url)
+  if (req.query.u === 'sign') {
+    return res.status(200).json({
+      status: 'team xecuter please accept my offering of a real license 100%!!'
+    })
+  } else if (req.query.u === 'retrieve') {
+    return res.status(200).json({
+      license: license.license
+    })
+  }
   res.status(404).json({
     error: 'some error message for now' // how about we send a proper response,
   })
