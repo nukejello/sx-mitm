@@ -8,6 +8,7 @@ Tried using a self-signed certificate and it made requests and honored what was 
 * In `zones.json` change `192.168.7.211` to whatever your local IP address is
 * set your router's DNS settings to your local IP
 * restart your switch into SX OS
-* Run `npm start`
+* Run `npm start`  
+
 ## Credits
 Some code is sourced from [Pēteris Ņikiforovs's dns proxy article](https://peteris.rocks/blog/dns-proxy-server-in-node-js-with-ui/) because I hate DNS (licensed under Apache License 2.0)
