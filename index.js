@@ -24,17 +24,20 @@ app.use(bodyParser.json())
 app.post('/sx-api-server.php', (req, res) => {
   console.log('POST', req.url)
   if (req.query.u === 'sign') {
+    console.log(req.body)
     return res.status(200).json({
-      status: 'team xecuter please accept my offering of a real license 100%!!'
+      status: 'Ok'
     })
+    /*return res.status(200).json({
+      //status: 'team xecuter please accept my offering of a real license 100%!!'
+    })*/
   } else if (req.query.u === 'retrieve') {
     return res.status(200).json({
       license: license.license
     })
+  } else {
+    console.log(req.query.u)
   }
-  res.status(404).json({
-    error: 'some error message for now' // how about we send a proper response,
-  })
 })
 
 https.createServer(sslOpt, app).listen(443, () => console.log('https server listening on :443 with self signed certs'))
